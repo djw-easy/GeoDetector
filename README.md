@@ -1,6 +1,6 @@
 # A simple Python package for the geodetector 
 
-A quick example of geodetector usage is given in the ./example.ipynb. 
+A quick example of geodetector usage is given in the ./example.ipynb. Or you can see [用Python实现地理探测器](https://mp.weixin.qq.com/s?__biz=Mzg3Mzg0MTU2Nw==&mid=2247484491&idx=1&sn=de394e4457b01df5feda2958c18a8b7c&chksm=ced892bbf9af1badc0fd6a072fa3a1a33de6fa7e2fd5174aba0032901d802a22c8b35126836d&token=1377416217&lang=zh_CN#rd).
 
 Reference:
 
