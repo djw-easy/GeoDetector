@@ -57,8 +57,8 @@ def factor_dector(df: pd.DataFrame, y: Union[str, int], factors: Sequence):
     out_df = pd.DataFrame(index=["q statistic", "p value"], columns=factors, dtype="float32")
     N_var = df[y].var(ddof=1)
     N_popu = df.shape[0]
-    N_stra = df['type'].unique().shape[0]
     for factor in factors:
+        N_stra = df[factor].unique().shape[0]
         q, lamda_1st_sum, lamda_2nd_sum = cal_q(df, y, factor)
 
         #lamda value
