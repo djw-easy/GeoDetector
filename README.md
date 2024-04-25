@@ -4,7 +4,15 @@ A quick example of geodetector usage is given in the ./example.ipynb. Or you can
 
 # Install
 
-不要使用Pip或者conda，直接下载`geodetector.py`文件，放置到工作目录或者`Python安装路径/Lib/site-packages`目录下即可。
+English: 
+
+To use `geodetector.py`, you don't need to use `Pip` or `conda`. Simply download the `geodetector.py` file and place it in your working directory or in the `Python installation path/Lib/site-packages` directory.
+
+Additionally, you will need to install three libraries: `numpy`, `pandas`, and `scipy`. You can install these directly using the command `pip install numpy pandas scipy`.
+
+Chinese:
+
+不要使用`Pip`或者`conda`，直接下载`geodetector.py`文件，放置到工作目录或者`Python安装路径/Lib/site-packages`目录下即可。
 
 另外还需安装`numpy`、`pandas`和`scipy`三个库，直接使用`pip install numpy pandas scipy`安装即可。
 
