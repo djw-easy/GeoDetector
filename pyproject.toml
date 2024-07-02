@@ -3,15 +3,15 @@ requires = [
     "numpy",
     "pandas",
     "scipy",
-    "hatchling>=0.3.0",
+    "hatchling",
     "matplotlib"
 ]
 build-backend = "hatchling.build"
 
 
 [project]
-name = "pygd"
-version = "0.1"
+name = "py_geodetector"
+version = "0.1.2"
 authors = [
     { name = "djw", email = "djweasy@163.com" },
 ]

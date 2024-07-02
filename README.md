@@ -3,30 +3,36 @@
 # Install
 
 ```
-pip install pygd
+pip install py-geodetector
 ```
 
 # Usage
 
+A quick example of geodetector usage is given in the ./example.ipynb.
+
 ```python
+from py_geodetector import load_example_data, GeoDetector
 
+# load example data
+df = load_example_data()
+
+gd = GeoDetector(df)
+# factor detect
+factor_df = gd.factor_dector()
+
+# interaction detect
+interaction_df = gd.interaction_detector()
+# or you can generate the interaction relationship as the same time
+interaction_df, interaction_relationship_df = gd.interaction_detector(relationship=True)
+
+# ecological detect
+ecological_df = gd.ecological_detector()
+
+# plot 
+# use a heatmap visualize the interaction detect result, 
+# red text means that the ecological detection results show a significant difference
+gd.plot(value_fontsize=14, tick_fontsize=16, colorbar_fontsize=14);
 ```
-
-A quick example of geodetector usage is given in the ./example.ipynb. Or you can see [用Python实现地理探测器](https://mp.weixin.qq.com/s?__biz=Mzg3Mzg0MTU2Nw==&mid=2247484491&idx=1&sn=de394e4457b01df5feda2958c18a8b7c&chksm=ced892bbf9af1badc0fd6a072fa3a1a33de6fa7e2fd5174aba0032901d802a22c8b35126836d&token=1377416217&lang=zh_CN#rd).
-
-# Install
-
-English: 
-
-To use `geodetector.py`, you don't need to use `Pip` or `conda`. Simply download the `geodetector.py` file and place it in your working directory or in the `Python installation path/Lib/site-packages` directory.
-
-Additionally, you will need to install three libraries: `numpy`, `pandas`, and `scipy`. You can install these directly using the command `pip install numpy pandas scipy`.
-
-Chinese:
-
-不要使用`Pip`或者`conda`，直接下载`geodetector.py`文件，放置到工作目录或者`Python安装路径/Lib/site-packages`目录下即可。
-
-另外还需安装`numpy`、`pandas`和`scipy`三个库，直接使用`pip install numpy pandas scipy`安装即可。
 
 # Reference
 

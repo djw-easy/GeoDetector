@@ -32,7 +32,7 @@ class GeoDetector(object):
         self.y = y
         self.factors = factors
         self._check_data(df, y, factors)
-        self.interaction_df, self.ecological_df = None, None
+        self.factor_df, self.interaction_df, self.ecological_df = None, None, None
 
     def _check_data(self, df, y, factors):
         for factor in factors:
@@ -89,7 +89,7 @@ class GeoDetector(object):
         return q, lamda_1st_sum, lamda_2nd_sum
 
     def factor_dector(self):
-        out_df = pd.DataFrame(index=["q statistic", "p value"], columns=self.factors, dtype="float32")
+        self.factor_df = pd.DataFrame(index=["q statistic", "p value"], columns=self.factors, dtype="float32")
         N_var = self.df[self.y].var(ddof=1)
         N_popu = self.df.shape[0]
         for factor in self.factors:
@@ -103,9 +103,9 @@ class GeoDetector(object):
             #p value
             p_value = ncf.sf(F_value, N_stra - 1, N_popu - N_stra, nc=lamda)
 
-            out_df.loc["q statistic", factor] = q
-            out_df.loc["p value", factor] = p_value
-        return out_df
+            self.factor_df.loc["q statistic", factor] = q
+            self.factor_df.loc["p value", factor] = p_value
+        return self.factor_df
     
     @classmethod
     def _interaction_relationship(self, df):
