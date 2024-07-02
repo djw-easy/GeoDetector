@@ -2,7 +2,9 @@
 requires = [
     "numpy",
     "pandas",
-    "scipy"
+    "scipy",
+    "hatchling>=0.3.0",
+    "matplotlib"
 ]
 build-backend = "hatchling.build"
 
