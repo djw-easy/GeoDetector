@@ -1,0 +1,27 @@
+[build-system]
+requires = [
+    "numpy",
+    "pandas",
+    "scipy"
+]
+build-backend = "hatchling.build"
+
+
+[project]
+name = "pygd"
+version = "0.1"
+authors = [
+    { name = "djw", email = "djweasy@163.com" },
+]
+description = "A simple Python package for the geodetector"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/djw-easy/GeoDetector"
+"Bug Tracker" = "https://github.com/djw-easy/GeoDetector/issues"
