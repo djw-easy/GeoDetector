@@ -32,10 +32,12 @@ ecological_df = gd.ecological_detector()
 risk_result = gd.risk_detector()
 
 # plot 
-# use a heatmap visualize the interaction detect result, 
-# red text means that the ecological detection results show a significant difference
 gd.plot(value_fontsize=14, tick_fontsize=16, colorbar_fontsize=14);
 ```
+
+This is the visualization of the results of interactive detection. The interactive detection results are visualized by heat map, and the red text indicates that the ecological detection results show a significant difference.
+
+![](./example_result.png)
 
 # Reference
 
