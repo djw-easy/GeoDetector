@@ -11,7 +11,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "py_geodetector"
-version = "0.1.2"
+version = "0.1.3"
 authors = [
     { name = "djw", email = "djweasy@163.com" },
 ]

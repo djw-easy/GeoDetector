@@ -2,8 +2,8 @@ import warnings
 import numpy as np
 import pandas as pd
 from typing import Sequence
-from scipy.stats import f, ncf
 import matplotlib.pyplot as plt
+from scipy.stats import f, levene, ncf, ttest_ind
 
 
 from pathlib import Path
@@ -27,10 +27,11 @@ def _plot_value(ax, interaction_df, ecological_df, value_fontsize=10):
 
 
 class GeoDetector(object):
-    def __init__(self, df: pd.DataFrame, y: str, factors: Sequence[str]):
+    def __init__(self, df: pd.DataFrame, y: str, factors: Sequence[str], alpha=0.05):
         self.df = df
         self.y = y
         self.factors = factors
+        self.alpha = alpha
         self._check_data(df, y, factors)
         self.factor_df, self.interaction_df, self.ecological_df = None, None, None
 
@@ -155,11 +156,44 @@ class GeoDetector(object):
                 ssw2, _, _ = self._cal_ssw(self.df, self.y, self.factors[j])
                 dfd = self.df[self.factors[j]].notna().sum()-1
                 fval = (dfn*(dfd-1)*ssw1)/(dfd*(dfn-1)*ssw2)
-                if fval<f.ppf(0.05, dfn, dfn):
+                if fval<f.ppf(self.alpha, dfn, dfn):
                     self.ecological_df.loc[self.factors[i], self.factors[j]] = 'Y'
                 else:
                     self.ecological_df.loc[self.factors[i], self.factors[j]] = 'N'
         return self.ecological_df
+    
+    def risk_detector(self):
+        """
+        Compares the difference of average values between sub-groups
+        Reference:
+            https://github.com/gsnrguo/QGIS-Geographical-detector/blob/main/gd_core/geodetector.py
+        """
+        risk_result = dict()
+        for factor in self.factors:
+            risk_name = self.df.groupby(factor)[self.y].mean()
+            strata = np.sort(self.df[factor].unique())
+            t_test = np.empty((len(strata), len(strata)))
+            t_test.fill(np.nan)
+            t_test_strata = pd.DataFrame(t_test, index=strata, columns=strata)
+            for i in range(len(strata) - 1):
+                for j in range(i + 1, len(strata)):
+                    y_i = self.df.loc[self.df[factor] == strata[i], [self.y]]
+                    y_j = self.df.loc[self.df[factor] == strata[j], [self.y]]
+                    y_i = np.array(y_i).reshape(-1)
+                    y_j = np.array(y_j).reshape(-1)
+                    # hypothesis testing of variance homogeneity
+                    levene_result = levene(y_i, y_j)
+                    if levene_result.pvalue < self.alpha:
+                        # variance non-homogeneous
+                        ttest_result = ttest_ind(y_i, y_j, equal_var=False)
+                    else:
+                        ttest_result = ttest_ind(y_i, y_j)
+
+                    t_test_strata.iloc[j, i] = ttest_result.pvalue <= self.alpha
+
+            risk_factor = dict(risk=risk_name, ttest_stra=t_test_strata)
+            risk_result[factor] = risk_factor
+        return risk_result
 
     def plot(self, tick_fontsize=10, value_fontsize=10, colorbar_fontsize=10, show=True):
         if isinstance(self.interaction_df, type(None)):

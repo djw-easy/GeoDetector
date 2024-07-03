@@ -28,6 +28,9 @@ interaction_df, interaction_relationship_df = gd.interaction_detector(relationsh
 # ecological detect
 ecological_df = gd.ecological_detector()
 
+# risk detect
+risk_result = gd.risk_detector()
+
 # plot 
 # use a heatmap visualize the interaction detect result, 
 # red text means that the ecological detection results show a significant difference
