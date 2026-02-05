@@ -11,7 +11,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "py_geodetector"
-version = "0.1.3"
+version = "0.2.1"
 authors = [
     { name = "djw", email = "djweasy@163.com" },
 ]
@@ -27,3 +27,11 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/djw-easy/GeoDetector"
 "Bug Tracker" = "https://github.com/djw-easy/GeoDetector/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/geodetector"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src/geodetector",
+]
